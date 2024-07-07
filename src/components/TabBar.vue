@@ -10,35 +10,35 @@ const display = computed(() => {
 </script>
 
 <template>
-  <van-tabbar v-show="display" v-model="active" route active-color="#34D399">
-    <van-tabbar-item replace to="/">
+  <VanTabbar v-show="display" v-model="active" route active-color="#34D399">
+    <VanTabbarItem replace to="/">
       <span>首页</span>
       <template #icon>
         <div class="i-carbon:home" />
       </template>
-    </van-tabbar-item>
+    </VanTabbarItem>
 
-    <van-tabbar-item replace to="/search">
+    <VanTabbarItem replace to="/search">
       <span>热点</span>
       <template #icon>
         <div class="i-carbon:location-current" />
       </template>
-    </van-tabbar-item>
+    </VanTabbarItem>
 
-    <van-tabbar-item replace to="/tree">
+    <VanTabbarItem replace to="/tree">
       <span>体系</span>
       <template #icon>
         <div class="i-carbon:container-services" />
       </template>
-    </van-tabbar-item>
+    </VanTabbarItem>
 
-    <van-tabbar-item replace to="/me">
+    <VanTabbarItem replace to="/me">
       <span>我的</span>
       <template #icon>
         <div class="i-carbon:user" />
       </template>
-    </van-tabbar-item>
-  </van-tabbar>
+    </VanTabbarItem>
+  </VanTabbar>
 </template>
 
 <style scoped>

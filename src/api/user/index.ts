@@ -34,3 +34,13 @@ export function registerApi(username: string, password: string, repassword: stri
     data: formData,
   })
 }
+
+/**
+ * 退出登录
+ */
+export function logoutApi(): AxiosPromise {
+  return request({
+    url: 'api/user/logout/json',
+    method: 'get',
+  })
+}

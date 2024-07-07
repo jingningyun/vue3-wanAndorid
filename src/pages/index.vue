@@ -81,35 +81,41 @@ function loadArticlets() {
 
 // 加收藏
 function adminAdd() {
-  // 跳转页面
-  router.push({ name: 'login', params: { title: '登陆' } })
+  router.push({ name: 'login' })
 }
 
-function goToUrl(url: string) {
-  window.location.href = url
+function goToUrl(title: string, url: string) {
+  // 跳转
+  /**
+   * router.push({ name: 'web', params: { url } })
+   * 接受不到，从Vue Router的2022-8-22 这次更新后，我们使用上面的方式在新页面无法获取
+   * https://juejin.cn/post/7222862599851638841
+   */
+  const params = { url, title }
+  router.push({ name: 'web', state: { params } })
 }
 </script>
 
 <template>
-  <Container class="container">
-    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+  <Container class="container" pb-52>
+    <VanPullRefresh v-model="refreshing" @refresh="onRefresh">
       <!-- 首页轮播 -->
-      <van-swipe type="mask" :autoplay="3000" h-200 w-full>
-        <van-swipe-item v-for="(banner) in banners" :key="banner.id" @click="goToUrl(banner.url)">
+      <VanSwipe type="mask" :autoplay="3000" h-200 w-full>
+        <VanSwipeItem v-for="(banner) in banners" :key="banner.id" @click="goToUrl(banner.title, banner.url)">
           <span pos-absolute bottom-0 left-0 w-full bg-black bg-op-50 p-5 font-size-12 font-300 backdrop-blur-2 color="#fff">{{ banner.title }}</span>
           <img v-lazy="banner.imagePath" h-full w-full>
-        </van-swipe-item>
-      </van-swipe>
+        </VanSwipeItem>
+      </VanSwipe>
 
       <!-- 文章列表 -->
-      <van-list
+      <VanList
         v-model:loading="loading"
         :finished="finished"
         finished-text="没有更多了"
         error-text="请求失败，点击重新加载"
         @load="onLoad"
       >
-        <van-cell v-for="articlet in articlets" :key="articlet.id" @click="goToUrl(articlet.link)">
+        <VanCell v-for="articlet in articlets" :key="articlet.id" @click="goToUrl(articlet.title, articlet.link)">
           <div w-full flex-auto text-left>
             <span w-full text-black>{{ articlet.title }}</span>
             <div w-full font-size-12 font-200>
@@ -120,9 +126,9 @@ function goToUrl(url: string) {
               <div class="i-carbon:favorite-filled" pos-absolute bottom-10 right-10 h-16 w-16 @click.stop="adminAdd" />
             </div>
           </div>
-        </van-cell>
-      </van-list>
-    </van-pull-refresh>
+        </VanCell>
+      </VanList>
+    </VanPullRefresh>
   </Container>
 </template>
 

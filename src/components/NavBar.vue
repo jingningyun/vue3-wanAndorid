@@ -1,5 +1,7 @@
 <script setup lang='ts'>
-const route = useRoute()
+defineProps({
+  title: String,
+})
 const router = useRouter()
 
 function onBack() {
@@ -8,13 +10,6 @@ function onBack() {
   else
     router.replace('/')
 }
-
-const title = computed(() => {
-  if (!route.meta)
-    return ''
-
-  return route.meta.title ? route.meta.title : ''
-})
 </script>
 
 <template>

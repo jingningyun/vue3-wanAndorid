@@ -58,6 +58,14 @@ function resetState() {
   errMsg.value = ''
 }
 
+function handleBack() {
+  if (router.getRoutes.length === 0) {
+    router.push({ name: 'home' })
+    return
+  }
+  router.back()
+}
+
 /**
  * 登录或者注册
  */
@@ -70,7 +78,8 @@ function handleLoginRegister() {
   if (modeLogin.value) {
     // 登录
     store.login(uName.value, pWord.value).then(() => {
-      router.back()
+      const to = history.state.to
+      router.replace(to)
     }).catch((err) => {
       errMsg.value = err
     })
@@ -90,7 +99,7 @@ function handleLoginRegister() {
 
 <template>
   <Container flex flex-col bg-emerald bg-op-50>
-    <div font-size-25 text-white font-bold class="i-carbon:arrow-left" @click="router.back()" />
+    <div font-size-25 text-white font-bold class="i-carbon:arrow-left" @click="handleBack" />
 
     <div w-full flex-center flex-grow-1>
       <img src="@/assets/logo.svg" h-30 w-30 class="animate-bounce" object-contain>
@@ -109,9 +118,9 @@ function handleLoginRegister() {
         </div>
       </van-cell-group>
       <div mt-30 w-full flex pl-15 pr-15>
-        <van-button type="success" plain flex-grow-1 text-white color="#34D39980" font-bold :disabled="disLogin" @click="handleLoginRegister()">
+        <VanButton type="success" plain flex-grow-1 text-white color="#34D39980" font-bold :disabled="disLogin" @click="handleLoginRegister()">
           {{ modeLogin ? '登录' : '注册' }}
-        </van-button>
+        </VanButton>
       </div>
       <div pos-absolute right-30 mt-10 font-size-13 text-white font-400 @click="toggleModeLogin()">
         {{ modeLogin ? '去注册' : '去登录' }}

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { loginApi, registerApi } from '@/api/user'
+import { loginApi, logoutApi, registerApi } from '@/api/user'
 
 export const useUserStore = defineStore('userInfo', () => {
   const id = ref()
@@ -33,12 +33,30 @@ export const useUserStore = defineStore('userInfo', () => {
     return new Promise((resolve, reject) => {
       registerApi(uName, uPwd, rePwd).then((res) => {
         if (res.errorCode === 0) {
-          userInfo.value = res.data
+          id.value = res.data.id
+          token.value = res.data.token
+          username.value = res.data.username
+          nickname.value = res.data.nickname
           resolve(res.data.errorMsg)
         }
         else {
           reject(res.errorMsg)
         }
+      }).catch((err) => {
+        reject(err.message)
+      })
+    })
+  }
+
+  // 退出登录
+  const logout = () => {
+    return new Promise((resolve, reject) => {
+      logoutApi().then((res) => {
+        id.value = 0
+        token.value = ''
+        username.value = ''
+        nickname.value = ''
+        resolve(res.errorMsg)
       }).catch((err) => {
         reject(err.message)
       })
@@ -52,6 +70,7 @@ export const useUserStore = defineStore('userInfo', () => {
     nickname,
     login,
     register,
+    logout,
   }
 }, {
   persist: true,
