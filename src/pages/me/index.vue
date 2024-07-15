@@ -27,7 +27,7 @@ function logou() {
 
     <div w-full flex flex-grow-2 flex-col pb-20 pl-20 pr-20 bg="#f5f5f5">
       <div class="menu-list" mb-20 mt-20 flex flex-col gap-10 pb-10 pt-10>
-        <div class="menu-item" flex flex-row border-b="0.1px solid #cccccc50" pb-18>
+        <div class="menu-item" flex flex-row border-b="0.1px solid #cccccc50" pb-18 @click="router.push('/me/collect')">
           <span flex-grow-1>我的收藏</span>
           <div class="i-carbon:chevron-right" />
         </div>

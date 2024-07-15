@@ -9,4 +9,5 @@ export function setupPinia(app: App) {
 }
 
 export * from './modules/user'
+export * from './modules/tree'
 export { store }

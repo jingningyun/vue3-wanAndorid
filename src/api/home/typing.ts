@@ -48,4 +48,7 @@ export interface articletResult {
   // 文章链接
   link: string
 
+  // 是否收藏
+  collect: boolean
+
 }

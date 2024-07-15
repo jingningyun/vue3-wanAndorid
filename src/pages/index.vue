@@ -1,6 +1,10 @@
 <script setup lang='ts'>
 import { getArticlet, getBanner } from '@/api/home'
+import { cancelCollectArticlet, collectArticlet } from '@/api/collect'
 import type { articletResult, bannerResult } from '@/api/home/typing'
+import { useUserStore } from '@/stores'
+
+const userStore = useUserStore()
 
 const router = useRouter()
 /**
@@ -35,7 +39,7 @@ function onRefresh() {
   page.value = 0
   loading.value = false
   finished.value = false
-
+  articlets.value = []
   loadBanners()
 
   loadArticlets()
@@ -80,8 +84,19 @@ function loadArticlets() {
 }
 
 // 加收藏
-function adminAdd() {
-  router.push({ name: 'login' })
+function handelCollectArticlet(articlet: articletResult) {
+  if (userStore.id) {
+    if (articlet.collect) {
+      cancelCollectArticlet(articlet.id).then(() => {
+        articlet.collect = !articlet.collect
+      })
+    }
+    else {
+      collectArticlet(articlet.id).then(() => {
+        articlet.collect = !articlet.collect
+      })
+    }
+  }
 }
 
 function goToUrl(title: string, url: string) {
@@ -123,7 +138,7 @@ function goToUrl(title: string, url: string) {
               <span pl-10 text-emerald>分类: {{ articlet.superChapterName ? articlet.superChapterName : "未知" }}</span>
               <span pl-10 text-emerald>时间: {{ articlet.niceShareDate ? articlet.niceShareDate : "未知" }}</span>
 
-              <div class="i-carbon:favorite-filled" pos-absolute bottom-10 right-10 h-16 w-16 @click.stop="adminAdd" />
+              <div class="i-carbon:favorite-filled" :color=" articlet.collect ? '#ff0000' : '#999'" pos-absolute bottom-10 right-10 h-16 w-16 @click.stop="handelCollectArticlet(articlet)" />
             </div>
           </div>
         </VanCell>

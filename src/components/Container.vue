@@ -10,7 +10,6 @@ defineProps({
 <template>
   <main
     class="absolute left-0 h-full w-full overflow-y-auto pt-46"
-    :style="`padding-left: ${paddingX}px; padding-right: ${paddingX}px`"
   >
     <slot />
   </main>

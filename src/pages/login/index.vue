@@ -99,7 +99,7 @@ function handleLoginRegister() {
 
 <template>
   <Container flex flex-col bg-emerald bg-op-50>
-    <div font-size-25 text-white font-bold class="i-carbon:arrow-left" @click="handleBack" />
+    <div ml-15 font-size-25 text-white font-bold class="i-carbon:arrow-left" @click="handleBack" />
 
     <div w-full flex-center flex-grow-1>
       <img src="@/assets/logo.svg" h-30 w-30 class="animate-bounce" object-contain>
