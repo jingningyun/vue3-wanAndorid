@@ -91,7 +91,7 @@ function handelCollectArticlet(collect: collectResult) {
           </div>
         </VanCell>
       </VanList>
-    </vanpullrefresh>
+    </VanPullRefresh>
   </Container>
 </template>
 

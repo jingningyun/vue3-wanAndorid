@@ -7,8 +7,10 @@ definePage({
   name: 'tree',
   meta: {
     level: 1,
+    keepAlive: true,
   },
 })
+
 const router = useRouter()
 const treeStore = useTreeStore()
 const treeList = ref([])
@@ -28,6 +30,12 @@ function goDetail(item: treeResult) {
   treeStore.name = item.name
   treeStore.children = item.children
   router.push({ name: 'treeDetail' })
+}
+</script>
+
+<script lang='ts'>
+export default {
+  name: 'Tree',
 }
 </script>
 

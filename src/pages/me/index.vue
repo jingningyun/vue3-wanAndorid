@@ -14,6 +14,12 @@ function logou() {
   userInfo.logout()
   router.replace('/')
 }
+const show = ref(false)
+function showPopup() {
+  console.log('showPopup')
+
+  show.value = true
+}
 </script>
 
 <template>
@@ -31,7 +37,7 @@ function logou() {
           <span flex-grow-1>我的收藏</span>
           <div class="i-carbon:chevron-right" />
         </div>
-        <div class="menu-item" flex flex-row pb-8>
+        <div class="menu-item" flex flex-row pb-8 @click="showPopup">
           <span flex-grow-1>关于我们</span>
           <div class="i-carbon:chevron-right" />
         </div>
@@ -41,6 +47,22 @@ function logou() {
         退出登录
       </VanButton>
     </div>
+
+    <!-- 圆角弹窗（居中） -->
+    <van-popup v-model:show="show" round :style="{ padding: '20px' }" closeable>
+      <h3>网站内容</h3>
+      <p class="about-p">
+        本网站每天新增20~30篇优质文章，并加入到现有分类中，力求整理出一份优质而又详尽的知识体系，闲暇时间不妨上来学习下知识；除此以外，并为大家提供平时开发过程中常用的工具以及常用的网址导航。
+      </p>
+      <p class="about-p">
+        原网址:
+        <a href="https://www.wanandroid.com/" target="_blank">玩Android</a>
+      </p>
+      <h3>源码位置</h3>
+      <p class="about-p">
+        本项目开源，如果你发现任何错误，不要犹豫，马上点击<a href="https://github.com/jingningyun/vue3-wanAndorid" target="_blank">GitHub</a>，在上面发起<b>issue</b>或者提交<b>pull request</b>。
+      </p>
+    </van-popup>
   </Container>
 </template>
 
@@ -67,6 +89,11 @@ function logou() {
       padding-right: 10px;
       padding-top: 8px;
     }
+  }
+
+  .about-p {
+    text-indent: 2em;
+    line-height: 1.5;
   }
 }
 </style>

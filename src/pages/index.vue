@@ -111,6 +111,17 @@ function goToUrl(title: string, url: string) {
 }
 </script>
 
+<script lang= 'ts'>
+/**
+ * 因为 setup的语法糖，不能在里面定义name，定义的话不生效
+ * https://blog.csdn.net/qq_41839808/article/details/128923264
+ */
+
+export default defineComponent({
+  name: 'Home',
+})
+</script>
+
 <template>
   <Container class="container" pb-52>
     <VanPullRefresh v-model="refreshing" @refresh="onRefresh">

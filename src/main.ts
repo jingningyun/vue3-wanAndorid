@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { Lazyload, Notify } from 'vant'
+import { Lazyload, Notify, Popup } from 'vant'
 import App from './App.vue'
 import router from '@/router'
 import 'virtual:uno.css'
@@ -19,5 +19,6 @@ app.use(Lazyload, {
   lazyComponent: true,
 })
 app.use(Notify)
+app.use(Popup)
 
 app.mount('#app')

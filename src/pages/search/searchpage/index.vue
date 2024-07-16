@@ -1,24 +1,21 @@
 <script setup lang='ts'>
-import { useTreeStore } from '@/stores'
-import { getTreeArticleApi } from '@/api/tree'
+import { getSearchApi } from '@/api/search'
 
 definePage({
-  name: 'treeDetail',
+  name: 'searchpage',
   meta: {
     level: 2,
   },
 })
-const active = ref(0)
-const treeStore = useTreeStore()
-const name = treeStore.name
-// 体系下的小标题
-const childrens = treeStore.children
 
 const router = useRouter()
+const page = ref('0')
+const searckKey = ref('')
+searckKey.value = router.currentRoute.value.query.searchKey
+
 // 获取小标题的文章
 const articles = ref([])
 const refreshing = ref(false)
-const page = ref(0)
 const loading = ref(false)
 const finished = ref(false)
 
@@ -28,12 +25,11 @@ function onRefresh() {
   articles.value = []
   loading.value = false
   finished.value = false
-
-  getTreeArticle(page.value, childrens[active.value].id)
+  getSearch()
 }
 
-function getTreeArticle(page: number, id: number) {
-  getTreeArticleApi(page, id).then((res) => {
+function getSearch() {
+  getSearchApi(page.value, searckKey.value).then((res) => {
     if (articles.value.length === res.data.total) {
       loading.value = false
       finished.value = true
@@ -55,7 +51,7 @@ function getTreeArticle(page: number, id: number) {
 }
 
 function onLoad() {
-  getTreeArticle(page.value, childrens[active.value].id)
+  getSearch()
   page.value++
 }
 
@@ -63,22 +59,24 @@ function goToUrl(title: string, url: string) {
   const params = { url, title }
   router.push({ name: 'web', state: { params } })
 }
-
-function onClickTab() {
-  onRefresh()
-}
 </script>
 
 <template>
-  <NavBar :title="name" />
-  <Container>
-    <!-- 头部标签 -->
-    <van-tabs v-model:active="active" color="emerald" class="tabs-title" @click-tab="onClickTab">
-      <van-tab v-for="children in childrens" :key="children.id" :title="children.name" />
-    </van-tabs>
+  <Container class="container">
+    <!-- title -->
+    <div class="title-wrap" h-46 flex-center bg-white>
+      <i h-46 flex-center class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__arrow" color="#34d39980" @click="router.back()" />
+      <van-field
+        v-model="searckKey" placeholder="请输入" rows="1"
+        autosize @keydown.enter="onRefresh"
+      />
+      <van-button type="success" size="mini" class="search-btn" plain hairline w-56 @click="onRefresh">
+        搜索
+      </van-button>
+    </div>
 
-    <!-- 文章列表 -->
     <VanPullRefresh v-model="refreshing" @refresh="onRefresh">
+      <!-- 文章列表 -->
       <VanList
         v-model:loading="loading"
         :finished="finished"
@@ -88,7 +86,7 @@ function onClickTab() {
       >
         <VanCell v-for="article in articles" :key="article.id" @click="goToUrl(article.title, article.link)">
           <div w-full flex-auto text-left>
-            <span w-full text-black>{{ article.title }}</span>
+            <span w-full text-black class="article-title">{{ article.title }}</span>
             <div w-full font-size-12 font-200>
               <span text-emerald>作者: {{ article.author ? article.author : "佚名" }}</span>
               <span pl-10 text-emerald>时间: {{ article.niceDate ? article.niceDate : "未知" }}</span>
@@ -102,12 +100,27 @@ function onClickTab() {
   </Container>
 </template>
 
-<style scoped>
-.tabs-title {
+<style scoped lang="less">
+.title-wrap {
   position: sticky;
   top: 0;
   padding-bottom: 5px;
   background-color: #fff;
   z-index: 999;
+  .van-icon {
+    padding: 0 var(--van-padding-md);
+  }
+  .search-btn {
+    margin-right: var(--van-padding-md);
+  }
+  .title-content {
+    text-transform: capitalize;
+    font-size: 17px;
+    font-weight: 600;
+  }
+}
+.container {
+  padding-top: 0px !important;
+  background-color: #f5f5f5;
 }
 </style>

@@ -52,4 +52,16 @@ html.dark {
 :root {
   --van-nav-bar-icon-color: #34d39980 !important;
   --van-tabs-bottom-bar-color: #34d399 !important;
+  --van-button-success-background: #34d399 !important;
+  --van-button-success-border-color: #34d399 !important;
+}
+//文章标题
+.article-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.5; /* 根据你的字体大小和行高调整 */
+  max-height: 3em; /* 这里的值应该是行高乘以行数，即1.5 * 2 = 3 */
+  text-overflow: ellipsis;
 }
