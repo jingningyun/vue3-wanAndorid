@@ -15,6 +15,7 @@ export type RequestError = AxiosError<{
   message?: string
   result?: any
   errorMessage?: string
+  errorCode?: number
 }>
 
 // 异常拦截处理器

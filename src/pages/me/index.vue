@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import { showNotify } from 'vant'
 import { useUserStore } from '@/stores'
 
 definePage({
@@ -12,12 +13,10 @@ const router = useRouter()
 
 function logou() {
   userInfo.logout()
-  router.replace('/')
+  showNotify({ message: '用户退出' })
 }
 const show = ref(false)
 function showPopup() {
-  console.log('showPopup')
-
   show.value = true
 }
 </script>

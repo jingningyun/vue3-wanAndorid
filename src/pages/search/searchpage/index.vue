@@ -9,9 +9,9 @@ definePage({
 })
 
 const router = useRouter()
-const page = ref('0')
+const page = ref(0)
 const searckKey = ref('')
-searckKey.value = router.currentRoute.value.query.searchKey
+searckKey.value = router.currentRoute.value.query.searchKey as string
 
 // 获取小标题的文章
 const articles = ref([])

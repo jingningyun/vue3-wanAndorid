@@ -7,19 +7,18 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.name === 'login' || to.name === 'home' || to.name === 'tree' || to.name === 'search') {
-    next()
-  }
-  else {
-    // next({ name: 'login' })
+router.beforeEach((to, _, next) => {
+  if (to.name === 'collect') {
     const userStore = useUserStore()
     if (!userStore.id) {
-      next({ name: 'login', state: { to: to.name } })
+      next({ name: 'login', state: { to: to.path } })
     }
     else {
       next()
     }
+  }
+  else {
+    next()
   }
 })
 

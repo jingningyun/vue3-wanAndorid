@@ -97,6 +97,9 @@ function handelCollectArticlet(articlet: articletResult) {
       })
     }
   }
+  else {
+    router.push({ name: 'login' })
+  }
 }
 
 function goToUrl(title: string, url: string) {
