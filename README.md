@@ -1,9 +1,11 @@
 ### Vue3 + Vite + TypeScript H5项目
 
 ### 项目效果
-![image](https://github.com/jingningyun/vue3-wanAndorid/tree/main/src/assets/docs/preview1.jpg)
-![image](https://github.com/jingningyun/vue3-wanAndorid/tree/main/src/assets/docs/preview2.jpg)
-![image](https://github.com/jingningyun/vue3-wanAndorid/tree/main/src/assets/docs/preview3.jpg)
+<div align=center>
+<img src="./src/assets/docs/preview1.jpg" alt="这是preview1" width=216 height=480>
+  <img src="./src/assets/docs/preview2.jpg" alt="这是preview2" width=216 height=480>
+  <img src="./src/assets/docs/preview3.jpg" alt="这是preview3" width=216 height=480>
+</div>
 ### 项目运行
 
 ```
